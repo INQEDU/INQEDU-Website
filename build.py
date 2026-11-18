@@ -11,6 +11,25 @@ from subjects import GROUPS, SUBJECTS
 OUT = Path(__file__).parent / "site"
 BRAND = "Ink &amp; Quill"
 
+from urllib.parse import quote
+
+WHATSAPP = "6588665396"
+WHATSAPP_DISPLAY = "+65 8866 5396"
+EMAIL = "admin@inqedu.com"
+
+
+def whatsapp_link(subject=None):
+    """wa.me link that opens WhatsApp with an enquiry message ready to send."""
+    if subject:
+        plain = subject.replace("&amp;", "&")
+        text = (f"Hi Ink & Quill! I'd like to find out more about your IB {plain} classes.\n\n"
+                "Student's name:\nSchool and year of study:\nLevel (SL or HL):")
+    else:
+        text = ("Hi Ink & Quill! I'd like to find out more about your IB classes.\n\n"
+                "Student's name:\nSchool and year of study:\nSubject(s) and level (SL or HL):")
+    return f"https://wa.me/{WHATSAPP}?text={quote(text)}"
+
+
 NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("Contact", "contact.html")]
 
 
@@ -67,7 +86,7 @@ def page(path, title, description, body, current, root=""):
         <ul>
           <li><a href="{root}contact.html">Send an enquiry</a></li>
           <li><a href="mailto:admin@inqedu.com">admin@inqedu.com</a></li>
-          <li><a href="https://wa.me/6588665396">WhatsApp +65 8866 5396</a></li>
+          <li><a href="{whatsapp_link()}">WhatsApp {WHATSAPP_DISPLAY}</a></li>
         </ul>
       </div>
     </div>
@@ -245,7 +264,7 @@ def slots_html(x):
     if not x["slots"]:
         return """<div class="slots-empty">
           <p><strong>Class times for this subject will be posted here soon.</strong></p>
-          <p>Send us an enquiry and we will tell you the current timetable and whether places are available.</p>
+          <p>Message us on WhatsApp and we will tell you the current timetable and whether places are available.</p>
         </div>"""
     rows = "".join(
         f"<tr><th scope=\"row\">{sl.get('level', '')}</th><td>{sl.get('day', '')}</td><td>{sl.get('time', '')}</td>"
@@ -271,7 +290,7 @@ def subject_page(x):
     <h1>{x['name']}</h1>
     {pills()}
     <p class="lede">{x['intro']}</p>
-    <div class="actions"><a class="btn" href="../contact.html?subject={x['slug']}">Enquire about this subject</a><a class="btn btn--ghost" href="#slots">See class slots</a></div>
+    <div class="actions"><a class="btn" href="{whatsapp_link(x['name'])}">Enquire on WhatsApp</a><a class="btn btn--ghost" href="#slots">See class slots</a></div>
   </div>
 </section>
 
@@ -310,7 +329,7 @@ def subject_page(x):
         <h2>When classes run</h2>
       </div>
       {slots_html(x)}
-      <div class="actions" style="margin-top: 1.6rem;"><a class="btn" href="../contact.html?subject={x['slug']}">Enquire about this subject</a></div>
+      <div class="actions" style="margin-top: 1.6rem;"><a class="btn" href="{whatsapp_link(x['name'])}">Enquire on WhatsApp</a></div>
     </div>
   </div>
 </section>
@@ -474,79 +493,38 @@ for g in GUIDES:
     page(f"guides/{g['slug']}.html", f"{g['title']} | Ink &amp; Quill", g["summary"], article, "guides.html", root="../")
 
 # --------------------------------------------------------------- Contact
-contact = """<section class="page-head">
+contact = f"""<section class="page-head">
   <div class="wrap">
     <p class="label">Contact</p>
-    <h1>Send us <em>an enquiry</em></h1>
-    <p class="lede">Tell us a little about the student, which subjects they take, and what they need help with. We will reply with class times and the next step.</p>
+    <h1>Message us <em>on WhatsApp</em></h1>
+    <p class="lede">The quickest way to reach us is WhatsApp. Tap the button and a message opens, ready to send. Add a few details and we will reply with class times and the next step.</p>
   </div>
 </section>
 
 <section class="band band--linen">
   <div class="wrap contact">
-    <form id="enquiry-form" novalidate-off>
-      <div class="field">
-        <label for="name">Your name</label>
-        <input id="name" name="name" type="text" autocomplete="name" required>
+    <div class="wa-card">
+      <p class="label">WhatsApp</p>
+      <p class="wa-number">{WHATSAPP_DISPLAY}</p>
+      <div class="actions"><a class="btn" href="{whatsapp_link()}">Chat with us on WhatsApp</a></div>
+      <div class="wa-preview">
+        <p class="label">Your message will start like this</p>
+        <blockquote>Hi Ink &amp; Quill! I&rsquo;d like to find out more about your IB classes.<br><br>Student&rsquo;s name:<br>School and year of study:<br>Subject(s) and level (SL or HL):</blockquote>
+        <p class="small">You can edit it before you send it.</p>
       </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required>
-      </div>
-      <div class="field">
-        <label for="phone">Phone or WhatsApp <span class="opt">(optional)</span></label>
-        <input id="phone" name="phone" type="tel" autocomplete="tel">
-      </div>
-      <div class="field">
-        <label for="role">I am a</label>
-        <select id="role" name="role">
-          <option>Student</option>
-          <option>Parent or guardian</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="course">Subject</label>
-        <select id="course" name="subject" required>
-          <option value="">Choose a subject</option>
-          <option value="english-language-literature">English A: Language &amp; Literature</option>
-          <option value="english-literature">English A: Literature</option>
-          <option value="history">History</option>
-          <option value="geography">Geography</option>
-          <option value="business-management">Business Management</option>
-          <option value="maths-analysis-approaches">Mathematics: Analysis &amp; Approaches</option>
-          <option value="maths-applications-interpretation">Mathematics: Applications &amp; Interpretation</option>
-          <option value="more-than-one">More than one subject</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="level">Level</label>
-        <select id="level" name="level">
-          <option>Standard Level</option>
-          <option>Higher Level</option>
-          <option>Not sure yet</option>
-        </select>
-      </div>
-      <div class="field field--full">
-        <label for="message">How can we help?</label>
-        <textarea id="message" name="message" required></textarea>
-      </div>
-      <div class="field field--full">
-        <button class="btn" type="submit" style="justify-self: start; align-self: flex-start;">Send enquiry</button>
-      </div>
-      <p class="form-status" id="form-status" role="status" tabindex="-1" hidden></p>
-    </form>
+    </div>
     <aside class="stack">
-      <h2 style="font-size: 1.5rem;">Other ways to reach us</h2>
+      <h2 style="font-size: 1.5rem;">Prefer email?</h2>
       <dl class="details">
-        <div><dt>Email</dt><dd><a href="mailto:admin@inqedu.com">admin@inqedu.com</a></dd></div>
-        <div><dt>WhatsApp</dt><dd><a href="https://wa.me/6588665396">+65 8866 5396</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
+        <div><dt>WhatsApp</dt><dd><a href="{whatsapp_link()}">{WHATSAPP_DISPLAY}</a></dd></div>
       </dl>
     </aside>
   </div>
-</section>""".replace(" novalidate-off", "")
+</section>"""
 
 page("contact.html", "Contact Ink &amp; Quill",
-     "Send an enquiry about IB tuition at Ink and Quill.",
+     "Message Ink and Quill on WhatsApp or by email about IB tuition.",
      contact, "contact.html")
 
 print("Built", len(list(OUT.rglob("*.html"))), "pages into", OUT)

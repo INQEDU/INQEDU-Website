@@ -17,5 +17,4 @@ The website for Ink & Quill, an IB tuition centre.
 
 ## Still to do
 
-- Connect the enquiry form to a form service (set `FORM_ENDPOINT` in `site/js/main.js`).
 - Add a location once there is a centre.

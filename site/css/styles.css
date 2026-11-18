@@ -254,6 +254,12 @@ textarea { min-height: 150px; resize: vertical; }
 .details dd { margin: 0; }
 .todo { font-style: italic; opacity: 0.8; }
 
+/* WhatsApp contact */
+.wa-card { background: var(--paper); border: 1px solid var(--rule); padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 1.2rem; }
+.wa-number { font-family: var(--display); font-size: clamp(1.8rem, 3.6vw, 2.6rem); color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.wa-preview { border-top: 1px solid var(--rule); padding-top: 1.3rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.wa-preview blockquote { margin: 0; padding: 1rem 1.2rem; background: var(--linen); border-left: 2px solid var(--sand); color: var(--ink); line-height: 1.7; }
+
 /* Footer */
 .site-footer { background: var(--linen); border-top: 1px solid var(--rule); padding: clamp(44px, 6vw, 72px) 0 28px; }
 .site-footer .top { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 0.8fr)); gap: 36px; padding-bottom: 40px; }
