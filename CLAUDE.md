@@ -9,3 +9,4 @@
 - Preview larger changes on a branch first: Cloudflare builds a preview for each branch.
 - Enquiries go to WhatsApp (+65 8866 5396) via `whatsapp_link()` in `build.py`, which pre-fills a message; subject pages name the subject in it. There is no contact form.
 - FAQ answers live in `FAQS` in `build.py` and appear at the bottom of the contact page (`contact.html#faq`). Do not add facts the owner has not confirmed (fees, class sizes, trial lessons, location, one-to-one lessons).
+- Homepage class photos are in `site/assets/photos/`; metadata is stripped before adding. They show students, so confirm consent with the owner before adding new ones.
