@@ -254,6 +254,16 @@ textarea { min-height: 150px; resize: vertical; }
 .details dd { margin: 0; }
 .todo { font-style: italic; opacity: 0.8; }
 
+/* FAQ */
+.faq-list { border-top: 1px solid var(--ink); }
+.faq { border-bottom: 1px solid var(--rule); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 1.25rem 0; font-family: var(--display); font-size: 1.15rem; line-height: 1.4; color: var(--ink); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--body); font-size: 1.4rem; line-height: 1; color: var(--umber); flex: none; transition: transform 0.2s; }
+.faq[open] summary::after { transform: rotate(45deg); }
+.faq summary:hover { color: var(--umber); }
+.faq-answer { padding: 0 0 1.4rem; max-width: 40em; display: flex; flex-direction: column; gap: 0.8rem; }
+
 /* WhatsApp contact */
 .wa-card { background: var(--paper); border: 1px solid var(--rule); padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 1.2rem; }
 .wa-number { font-family: var(--display); font-size: clamp(1.8rem, 3.6vw, 2.6rem); color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }

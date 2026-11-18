@@ -30,7 +30,7 @@ def whatsapp_link(subject=None):
     return f"https://wa.me/{WHATSAPP}?text={quote(text)}"
 
 
-NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("Contact", "contact.html")]
+NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("FAQ", "faq.html"), ("Contact", "contact.html")]
 
 
 def page(path, title, description, body, current, root=""):
@@ -78,6 +78,7 @@ def page(path, title, description, body, current, root=""):
         <ul>
           <li><a href="{root}classes.html">Subjects and classes</a></li>
           <li><a href="{root}guides.html">Guides and blog</a></li>
+          <li><a href="{root}faq.html">Questions and answers</a></li>
           <li><a href="{root}contact.html">Contact</a></li>
         </ul>
       </div>
@@ -492,6 +493,75 @@ for g in GUIDES:
 </article>"""
     page(f"guides/{g['slug']}.html", f"{g['title']} | Ink &amp; Quill", g["summary"], article, "guides.html", root="../")
 
+# -------------------------------------------------------------------- FAQ
+FAQS = [
+    ("Subjects and courses", [
+        ("Which subjects do you teach?",
+         '<p>We teach seven IB Diploma subjects: English A: Language &amp; Literature, English A: Literature, History, Geography, Business Management, Mathematics: Analysis &amp; Approaches, and Mathematics: Applications &amp; Interpretation. You can see what we cover in each on the <a href="classes.html">classes page</a>.</p>'),
+        ("Do you teach Standard Level and Higher Level?",
+         "<p>Yes. Every subject is taught at both Standard Level (SL) and Higher Level (HL). HL students also prepare for the extra components their course requires, such as Paper 3 or the HL Essay.</p>"),
+        ("What is the difference between English A: Language &amp; Literature and English A: Literature?",
+         "<p>Both courses study literary works and share the same assessment structure. Language &amp; Literature also studies non-literary texts, such as advertisements, speeches, articles and cartoons. Literature focuses only on literary works: poetry, prose, drama and works in translation.</p>"),
+        ("What is the difference between Maths: Analysis &amp; Approaches and Applications &amp; Interpretation?",
+         "<p>Analysis &amp; Approaches puts more weight on algebra, calculus and proof, and Paper 1 is taken without a calculator. Applications &amp; Interpretation puts more weight on statistics, modelling and using technology to solve problems in context.</p><p>Some university courses, particularly in mathematics, engineering and the physical sciences, ask for Analysis &amp; Approaches at HL. Check the entry requirements of the courses you are interested in before you choose.</p>"),
+        ("My school is teaching a new syllabus. Do your classes follow it?",
+         "<p>Yes. We teach the course that your exam session follows. The IB is revising several subjects, including History, which has a new course first examined in May 2028. Tell us your exam year when you message us and we will make sure your classes match it.</p>"),
+        ("Do you help with internal assessments and coursework?",
+         "<p>Yes. We guide students through each subject's internally assessed work: the Individual Oral and HL Essay in English, the historical investigation, the Geography fieldwork investigation, the Business Management research project and the mathematical exploration. We help you plan, structure and improve your work. The work you submit must be your own.</p>"),
+    ]),
+    ("Our classes", [
+        ("What are your classes like?",
+         "<p>Our classes are interactive and built around discussion. You do much of the talking: you test your ideas against other students', learn to defend them, and get feedback you can act on straight away. The aim is to understand how each subject builds an argument, so you can make that argument yourself in the exam.</p>"),
+        ("Who teaches the classes?",
+         "<p>Classes are led by experienced tutors who know the IB Diploma courses and their assessments well.</p>"),
+        ("When do classes run?",
+         '<p>Each subject page lists its class slots, with the level, day, time and format. If a subject does not show any slots yet, <a href="contact.html">message us</a> and we will tell you the current timetable.</p>'),
+    ]),
+    ("Joining", [
+        ("How do I enquire or sign up?",
+         '<p>The quickest way is WhatsApp. The button on our <a href="contact.html">contact page</a> opens a message ready to send. Fill in the student&rsquo;s name, school and year, and the subjects and levels, and we will reply with the next step. You can also email us at <a href="mailto:admin@inqedu.com">admin@inqedu.com</a>.</p>'),
+        ("How much are the classes?",
+         '<p>Fees depend on the subject and level. <a href="contact.html">Message us</a> with the subjects you are interested in and we will send you the current fees.</p>'),
+        ("Can students join in the middle of the course?",
+         "<p>Message us with the student&rsquo;s year of study and subjects. We will let you know which classes have places and how we can help you catch up on what has already been covered.</p>"),
+    ]),
+]
+
+
+def faq_html():
+    out = []
+    for heading, items in FAQS:
+        qs = "".join(f"""
+        <details class="faq">
+          <summary>{q}</summary>
+          <div class="faq-answer">{a}</div>
+        </details>""" for q, a in items)
+        out.append(f"""<section class="band{' band--linen' if len(out) % 2 == 0 else ''}">
+  <div class="wrap cols">
+    <p class="label">{heading}</p>
+    <div class="faq-list">{qs}
+    </div>
+  </div>
+</section>""")
+    return "\n\n".join(out)
+
+
+faq_page = f"""<section class="page-head">
+  <div class="wrap">
+    <p class="label">FAQ</p>
+    <h1>Questions <em>and answers</em></h1>
+    <p class="lede">Answers to the questions parents and students ask us most. If yours is not here, message us on WhatsApp.</p>
+  </div>
+</section>
+
+{faq_html()}
+
+{cta()}"""
+
+page("faq.html", "Questions and Answers | Ink &amp; Quill",
+     "Common questions about IB tuition at Ink and Quill: subjects, levels, classes, internal assessments, fees and how to join.",
+     faq_page, "faq.html")
+
 # --------------------------------------------------------------- Contact
 contact = f"""<section class="page-head">
   <div class="wrap">
@@ -517,7 +587,6 @@ contact = f"""<section class="page-head">
       <h2 style="font-size: 1.5rem;">Prefer email?</h2>
       <dl class="details">
         <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
-        <div><dt>WhatsApp</dt><dd><a href="{whatsapp_link()}">{WHATSAPP_DISPLAY}</a></dd></div>
       </dl>
     </aside>
   </div>

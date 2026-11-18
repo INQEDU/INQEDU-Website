@@ -8,3 +8,4 @@
 - History and Geography have revised IB courses (History first examined May 2028), so their assessment tables show only figures common to both versions. Verify before adding timings.
 - Preview larger changes on a branch first: Cloudflare builds a preview for each branch.
 - Enquiries go to WhatsApp (+65 8866 5396) via `whatsapp_link()` in `build.py`, which pre-fills a message; subject pages name the subject in it. There is no contact form.
+- FAQ answers live in `FAQS` in `build.py`. Do not add facts the owner has not confirmed (fees, class sizes, trial lessons, location, one-to-one lessons).
