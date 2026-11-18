@@ -234,10 +234,10 @@ SCHOOLS = [
 
 # Short name shown under each logo, so every box reads the same way
 LOGO_CAPTIONS = {
-    "acs-independent": "ACS (Independent)",
-    "acs-international": "ACS (International)",
-    "sji": "SJI",
-    "sji-international": "SJI International",
+    "acs-independent": "Anglo-Chinese School (Independent)",
+    "acs-international": "Anglo-Chinese School (International)",
+    "sji": "St. Joseph&rsquo;s Institution",
+    "sji-international": "St. Joseph&rsquo;s Institution International",
     "sota": "School of the Arts, Singapore",
     "singapore-sports-school": "Singapore Sports School",
     "hwa-chong-international": "Hwa Chong International",
