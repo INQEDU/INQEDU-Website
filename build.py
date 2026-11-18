@@ -398,21 +398,6 @@ home = f"""<section class="hero">
   </div>
 </section>
 
-<section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Guides</p>
-    <div>
-      <div class="band-head">
-        <h2>Free guides for IB students</h2>
-      </div>
-      <div class="grid-3">
-      {guide_cards()}
-      </div>
-      <p style="margin-top: 2.2rem;"><a class="more" href="guides.html">All guides and blog posts</a></p>
-    </div>
-  </div>
-</section>
-
 {cta()}"""
 
 page("index.html", "Ink &amp; Quill IB Tuition",
