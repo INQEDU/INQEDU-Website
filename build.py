@@ -529,32 +529,30 @@ FAQS = [
 
 
 def faq_html():
-    out = []
+    groups = []
     for heading, items in FAQS:
         qs = "".join(f"""
-        <details class="faq">
-          <summary>{q}</summary>
-          <div class="faq-answer">{a}</div>
-        </details>""" for q, a in items)
-        head = ""
-        if not out:
-            head = """
-      <div class="band-head">
-        <h2>Frequently asked questions</h2>
-        <p class="measure">If your question is not answered here, message us on WhatsApp.</p>
-      </div>"""
-        attrs = ' id="faq"' if not out else ""
-        linen = " band--linen" if len(out) % 2 == 1 else ""
-        out.append(f"""<section class="band{linen}"{attrs}>
-  <div class="wrap cols">
-    <p class="label">{heading}</p>
-    <div>{head}
+          <details class="faq">
+            <summary>{q}</summary>
+            <div class="faq-answer">{a}</div>
+          </details>""" for q, a in items)
+        groups.append(f"""<div class="cols">
+      <p class="label">{heading}</p>
       <div class="faq-list">{qs}
       </div>
+    </div>""")
+    return f"""<section class="band" id="faq">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Frequently asked questions</h2>
+      <p class="measure">If your question is not answered here, message us on WhatsApp.</p>
+    </div>
+    <div class="faq-groups">
+    {"""
+    """.join(groups)}
     </div>
   </div>
-</section>""")
-    return "\n\n".join(out)
+</section>"""
 
 
 # --------------------------------------------------------------- Contact

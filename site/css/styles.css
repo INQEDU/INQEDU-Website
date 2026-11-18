@@ -255,6 +255,7 @@ textarea { min-height: 150px; resize: vertical; }
 .todo { font-style: italic; opacity: 0.8; }
 
 /* FAQ */
+.faq-groups { display: flex; flex-direction: column; gap: clamp(40px, 5vw, 64px); }
 .faq-list { border-top: 1px solid var(--ink); }
 .faq { border-bottom: 1px solid var(--rule); }
 .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 1.25rem 0; font-family: var(--display); font-size: 1.15rem; line-height: 1.4; color: var(--ink); }
