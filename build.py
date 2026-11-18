@@ -6,6 +6,8 @@ The header and footer are defined once here so every page stays in step.
 """
 from pathlib import Path
 
+from subjects import GROUPS, SUBJECTS
+
 OUT = Path(__file__).parent / "site"
 BRAND = "Ink &amp; Quill"
 
@@ -50,7 +52,7 @@ def page(path, title, description, body, current, root=""):
     <div class="top">
       <div>
         <img class="logo" src="{root}assets/logo.png" alt="Ink and Quill" width="820" height="392">
-        <p class="measure">IB Diploma tuition, specialising in English A: Language &amp; Literature and Literature.</p>
+        <p class="measure">IB Diploma tuition in seven subjects, at Standard and Higher Level.</p>
       </div>
       <div>
         <p class="label">Explore</p>
@@ -189,6 +191,136 @@ def guide_cards(root=""):
     return "\n      ".join(cards)
 
 
+
+# --------------------------------------------------------------- Subjects
+def group_subjects(gid):
+    return [x for x in SUBJECTS if x["group"] == gid]
+
+
+def pills():
+    return '<div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>'
+
+
+def home_subjects():
+    cols = []
+    for gid, num, gname in GROUPS:
+        items = "".join(
+            f'<li><a href="classes/{x["slug"]}.html">{x["name"]}</a><span>SL &middot; HL</span></li>'
+            for x in group_subjects(gid))
+        cols.append(f'<div><p class="group-label"><span>{num}</span>{gname}</p><ul class="also">{items}</ul></div>')
+    return f"""<section class="band band--linen">
+  <div class="wrap cols">
+    <p class="label">Subjects</p>
+    <div>
+      <div class="band-head">
+        <h2>Seven IB Diploma subjects, at Standard and Higher Level</h2>
+        <p class="measure">Every class follows the IB Diploma syllabus. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
+      </div>
+      <div class="groups">{"".join(cols)}</div>
+      <p style="margin-top: 2.2rem;"><a class="more" href="classes.html">All subjects and classes</a></p>
+    </div>
+  </div>
+</section>"""
+
+
+def subject_cards(root=""):
+    out = []
+    for gid, num, gname in GROUPS:
+        cards = "".join(f"""
+        <a class="card card-link subject-card" href="{root}classes/{x['slug']}.html">
+          {pills()}
+          <h3>{x['name']}</h3>
+          <p>{x['short']}</p>
+          <span class="more">View subject</span>
+        </a>""" for x in group_subjects(gid))
+        out.append(f"""<div class="group">
+      <p class="group-label"><span>{num}</span>{gname}</p>
+      <div class="grid-3">{cards}
+      </div>
+    </div>""")
+    return "\n    ".join(out)
+
+
+def slots_html(x):
+    if not x["slots"]:
+        return """<div class="slots-empty">
+          <p><strong>Class times for this subject will be posted here soon.</strong></p>
+          <p>Send us an enquiry and we will tell you the current timetable and whether places are available.</p>
+        </div>"""
+    rows = "".join(
+        f"<tr><th scope=\"row\">{sl.get('level', '')}</th><td>{sl.get('day', '')}</td><td>{sl.get('time', '')}</td>"
+        f"<td>{sl.get('format', '')}</td><td><span class=\"status\">{sl.get('status', '')}</span></td></tr>"
+        for sl in x["slots"])
+    return f"""<div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Level</th><th scope="col">Day</th><th scope="col">Time</th><th scope="col">Format</th><th scope="col">Places</th></tr></thead>
+            <tbody>{rows}</tbody>
+          </table>
+        </div>"""
+
+
+def subject_page(x):
+    group = next(g for g in GROUPS if g[0] == x["group"])
+    cover = "".join(f"<li>{c}</li>" for c in x["cover"])
+    rows = "".join(
+        f'<tr><th scope="row">{c}</th><td>{w}</td><td>{sl}</td><td>{hl}</td></tr>'
+        for c, w, sl, hl in x["assessment"])
+    return f"""<section class="page-head">
+  <div class="wrap">
+    <p class="label"><a href="../classes.html">Classes</a> &nbsp;/&nbsp; {group[1]}: {group[2]}</p>
+    <h1>{x['name']}</h1>
+    {pills()}
+    <p class="lede">{x['intro']}</p>
+    <div class="actions"><a class="btn" href="../contact.html?subject={x['slug']}">Enquire about this subject</a><a class="btn btn--ghost" href="#slots">See class slots</a></div>
+  </div>
+</section>
+
+<section class="band band--linen">
+  <div class="wrap cols">
+    <p class="label">What we cover</p>
+    <div>
+      <ul class="checklist">{cover}</ul>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap cols">
+    <p class="label">Assessment</p>
+    <div>
+      <div class="band-head">
+        <h2>How {x['name']} is assessed</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Component</th><th scope="col">What it is</th><th scope="col">Standard Level</th><th scope="col">Higher Level</th></tr></thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top: 1.2rem;">{x['note']}</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--linen" id="slots">
+  <div class="wrap cols">
+    <p class="label">Class slots</p>
+    <div>
+      <div class="band-head">
+        <h2>When classes run</h2>
+      </div>
+      {slots_html(x)}
+      <div class="actions" style="margin-top: 1.6rem;"><a class="btn" href="../contact.html?subject={x['slug']}">Enquire about this subject</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <a class="more" href="../classes.html">All subjects</a>
+  </div>
+</section>"""
+
 # ------------------------------------------------------------------ Home
 home = f"""<section class="hero">
   <div class="wrap">
@@ -219,41 +351,7 @@ home = f"""<section class="hero">
   </div>
 </section>
 
-<section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Subjects</p>
-    <div>
-      <div class="band-head">
-        <h2>Specialists in IB English, with five more subjects</h2>
-        <p class="measure">Every class follows the IB Diploma syllabus, at Standard and Higher Level.</p>
-      </div>
-      <p class="label" style="margin-bottom: 1rem;">Our specialism</p>
-      <div class="grid-2">
-        <article class="card">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>English A: Language &amp; Literature</h3>
-          <p>Literary works alongside the texts of everyday life: advertisements, speeches, opinion columns and cartoons. You learn to explain how any text shapes its audience.</p>
-          <a class="more" href="classes.html#language-and-literature">Course details</a>
-        </article>
-        <article class="card">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>English A: Literature</h3>
-          <p>Poetry, prose, drama and works in translation. You build the close-reading habits and the critical vocabulary that the course rewards.</p>
-          <a class="more" href="classes.html#literature">Course details</a>
-        </article>
-      </div>
-      <p class="label" style="margin: 2.6rem 0 1rem;">Also taught</p>
-      <ul class="also">
-        <li><a href="classes.html#history">History</a><span>SL &middot; HL</span></li>
-        <li><a href="classes.html#geography">Geography</a><span>SL &middot; HL</span></li>
-        <li><a href="classes.html#business">Business Management</a><span>SL &middot; HL</span></li>
-        <li><a href="classes.html#maths-aa">Mathematics: Analysis &amp; Approaches</a><span>SL &middot; HL</span></li>
-        <li><a href="classes.html#maths-ai">Mathematics: Applications &amp; Interpretation</a><span>SL &middot; HL</span></li>
-      </ul>
-      <p style="margin-top: 2.2rem;"><a class="more" href="classes.html">All subjects and class details</a></p>
-    </div>
-  </div>
-</section>
+{home_subjects()}
 
 <section class="band">
   <div class="wrap cols">
@@ -282,27 +380,10 @@ home = f"""<section class="hero">
 
 <section class="band band--linen">
   <div class="wrap cols">
-    <p class="label">English A</p>
-    <div>
-      <div class="band-head">
-        <h2>Every English A component, prepared for</h2>
-      </div>
-      <ul class="ruled">
-        <li><h3>Paper 1</h3><p>Guided analysis of texts you have not seen before, written under timed conditions.</p></li>
-        <li><h3>Paper 2</h3><p>A comparative essay on two of the works you have studied, in response to a set question.</p></li>
-        <li><h3>Individual Oral</h3><p>A fifteen-minute oral that examines how two works present a global issue of your choice.</p></li>
-        <li><h3>HL Essay<span class="note">Higher Level only</span></h3><p>A formal essay of 1,200 to 1,500 words that develops your own line of inquiry into one work.</p></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap cols">
     <p class="label">Guides</p>
     <div>
       <div class="band-head">
-        <h2>Free guides for IB English students</h2>
+        <h2>Free guides for IB students</h2>
       </div>
       <div class="grid-3">
       {guide_cards()}
@@ -315,7 +396,7 @@ home = f"""<section class="hero">
 {cta()}"""
 
 page("index.html", "Ink &amp; Quill IB Tuition",
-     "IB Diploma tuition specialising in English A Language and Literature and Literature, plus History, Geography, Business Management and Mathematics.",
+     "IB Diploma tuition in English A Language and Literature, Literature, History, Geography, Business Management and Mathematics, at SL and HL.",
      home, "index.html")
 
 # --------------------------------------------------------------- Classes
@@ -323,112 +404,13 @@ classes = f"""<section class="page-head">
   <div class="wrap">
     <p class="label">Classes</p>
     <h1>IB Diploma subjects, <em>Standard and Higher Level</em></h1>
-    <p class="lede">We specialise in both English A courses, and also teach History, Geography, Business Management and Mathematics. Classes are interactive: you discuss, practise, and get feedback you can act on.</p>
+    <p class="lede">We teach seven IB Diploma subjects across three subject groups. Classes are interactive: you discuss, practise, and get feedback you can act on. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
   </div>
 </section>
 
 <section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Our specialism</p>
-    <div>
-      <div class="band-head">
-        <h2>English A</h2>
-        <p class="measure">Our tutors specialise in both English A courses. This is where our approach to reading and argument began.</p>
-      </div>
-      <article class="course" id="language-and-literature">
-        <div class="stack">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h2>English A: Language &amp; Literature</h2>
-          <p>This course pairs literary works with non-literary texts. One week you may study a novel, the next a political speech or an advertising campaign. The skill underneath is the same: explaining how a text is constructed to affect its audience.</p>
-        </div>
-        <ul aria-label="What we work on">
-          <li>Analysing non-literary text types: advertisements, speeches, articles, cartoons, websites</li>
-          <li>Reading for audience, purpose and context</li>
-          <li>Commenting on visual and structural features as well as language</li>
-          <li>Linking literary works and non-literary texts to a global issue for the Individual Oral</li>
-          <li>Planning and writing Paper 1 and Paper 2 under timed conditions</li>
-        </ul>
-      </article>
-      <article class="course" id="literature">
-        <div class="stack">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h2>English A: Literature</h2>
-          <p>This course is the close study of literary works across poetry, prose, drama and literature in translation. It rewards students who can read slowly, notice precisely, and build an interpretation that is their own.</p>
-        </div>
-        <ul aria-label="What we work on">
-          <li>Close reading of unseen poetry and prose</li>
-          <li>Understanding form, structure and voice in each literary genre</li>
-          <li>Comparing works for Paper 2 without retelling the plot</li>
-          <li>Choosing extracts and a global issue for the Individual Oral</li>
-          <li>Developing a line of inquiry for the HL Essay</li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap cols">
-    <p class="label">English A assessments</p>
-    <div>
-      <div class="band-head">
-        <h2>What English A students are assessed on</h2>
-        <p class="measure">Both English A courses share the same assessment structure. Our lessons work through every component.</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th scope="col">Component</th><th scope="col">What it is</th><th scope="col">Standard Level</th><th scope="col">Higher Level</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Paper 1</th><td>Guided analysis of unseen texts</td><td>One text, 1 h 15 min, 35%</td><td>Two texts, 2 h 15 min, 35%</td></tr>
-            <tr><th scope="row">Paper 2</th><td>Comparative essay on two works studied</td><td>1 h 45 min, 35%</td><td>1 h 45 min, 25%</td></tr>
-            <tr><th scope="row">Individual Oral</th><td>Fifteen-minute oral on a global issue</td><td>30%</td><td>20%</td></tr>
-            <tr><th scope="row">HL Essay</th><td>Essay of 1,200 to 1,500 words</td><td>Not required</td><td>20%</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="small" style="margin-top: 1.2rem;">Timings and weightings follow the current IB English A subject guides. Your school will confirm the details for your exam session.</p>
-    </div>
-  </div>
-</section>
-
-<section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Also offered</p>
-    <div>
-      <div class="band-head">
-        <h2>Humanities, business and mathematics</h2>
-        <p class="measure">The same interactive approach, applied to five more IB Diploma subjects.</p>
-      </div>
-      <div class="grid-3">
-        <article class="card subject" id="history">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>History</h3>
-          <p>Source analysis, essay planning and historical argument across your prescribed subject and world history topics. HL students also prepare their regional option.</p>
-        </article>
-        <article class="card subject" id="geography">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>Geography</h3>
-          <p>Core and optional themes, data and map interpretation, and the extended responses that the exam papers reward.</p>
-        </article>
-        <article class="card subject" id="business">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>Business Management</h3>
-          <p>Business concepts and tools applied to real organisations, with practice on case studies and structured exam questions.</p>
-        </article>
-        <article class="card subject" id="maths-aa">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>Mathematics: Analysis &amp; Approaches</h3>
-          <p>Algebra, functions, calculus and proof, for students who enjoy abstract reasoning. Includes guidance on the mathematical exploration.</p>
-        </article>
-        <article class="card subject" id="maths-ai">
-          <div class="levels"><span class="pill">SL</span><span class="pill">HL</span></div>
-          <h3>Mathematics: Applications &amp; Interpretation</h3>
-          <p>Statistics, modelling and technology-assisted problem solving in real-world contexts. Includes guidance on the mathematical exploration.</p>
-        </article>
-      </div>
-    </div>
+  <div class="wrap subject-groups">
+    {subject_cards()}
   </div>
 </section>
 
@@ -437,7 +419,7 @@ classes = f"""<section class="page-head">
     <p class="label">Joining</p>
     <div class="stack">
       <h2>Class times and fees</h2>
-      <p class="measure">Send us an enquiry with your subjects, levels and year of study. We will reply with the current timetable, fees and how to join a class.</p>
+      <p class="measure">Each subject page lists its class slots. For fees, or a time that is not listed, send us an enquiry with your subjects, levels and year of study.</p>
       <div class="actions" style="margin-top: 0.6rem;"><a class="btn" href="contact.html">Send an enquiry</a></div>
     </div>
   </div>
@@ -446,6 +428,12 @@ classes = f"""<section class="page-head">
 page("classes.html", "Subjects and Classes at Ink &amp; Quill",
      "IB Diploma classes in English A Language and Literature, Literature, History, Geography, Business Management and Mathematics, at Standard and Higher Level.",
      classes, "classes.html")
+
+for x in SUBJECTS:
+    plain = x["name"].replace("&amp;", "and")
+    page(f"classes/{x['slug']}.html", f"IB {x['name']} | Ink &amp; Quill",
+         f"IB {plain} tuition at Ink and Quill: what we cover, how it is assessed, and class slots.",
+         subject_page(x), "classes.html", root="../")
 
 # ---------------------------------------------------------------- Guides
 guides = f"""<section class="page-head">
@@ -520,14 +508,14 @@ contact = """<section class="page-head">
         <label for="course">Subject</label>
         <select id="course" name="subject" required>
           <option value="">Choose a subject</option>
-          <option>English A: Language &amp; Literature</option>
-          <option>English A: Literature</option>
-          <option>History</option>
-          <option>Geography</option>
-          <option>Business Management</option>
-          <option>Mathematics: Analysis &amp; Approaches</option>
-          <option>Mathematics: Applications &amp; Interpretation</option>
-          <option>More than one subject</option>
+          <option value="english-language-literature">English A: Language &amp; Literature</option>
+          <option value="english-literature">English A: Literature</option>
+          <option value="history">History</option>
+          <option value="geography">Geography</option>
+          <option value="business-management">Business Management</option>
+          <option value="maths-analysis-approaches">Mathematics: Analysis &amp; Approaches</option>
+          <option value="maths-applications-interpretation">Mathematics: Applications &amp; Interpretation</option>
+          <option value="more-than-one">More than one subject</option>
         </select>
       </div>
       <div class="field">

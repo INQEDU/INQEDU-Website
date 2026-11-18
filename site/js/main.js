@@ -34,6 +34,13 @@ var FORM_ENDPOINT = "";
   // Enquiry form
   var form = document.getElementById("enquiry-form");
   if (form) {
+    try {
+      var wanted = new URLSearchParams(window.location.search).get("subject");
+      var select = document.getElementById("course");
+      if (wanted && select && select.querySelector('option[value="' + wanted.replace(/[^a-z-]/g, "") + '"]')) {
+        select.value = wanted;
+      }
+    } catch (e) {}
     var status = document.getElementById("form-status");
     var say = function (text) { status.textContent = text; status.hidden = false; status.focus(); };
     form.addEventListener("submit", function (event) {
