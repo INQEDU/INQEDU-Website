@@ -30,7 +30,7 @@ def whatsapp_link(subject=None):
     return f"https://wa.me/{WHATSAPP}?text={quote(text)}"
 
 
-NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("FAQ", "faq.html"), ("Contact", "contact.html")]
+NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("Contact", "contact.html")]
 
 
 def page(path, title, description, body, current, root=""):
@@ -78,7 +78,7 @@ def page(path, title, description, body, current, root=""):
         <ul>
           <li><a href="{root}classes.html">Subjects and classes</a></li>
           <li><a href="{root}guides.html">Guides and blog</a></li>
-          <li><a href="{root}faq.html">Questions and answers</a></li>
+          <li><a href="{root}contact.html#faq">Questions and answers</a></li>
           <li><a href="{root}contact.html">Contact</a></li>
         </ul>
       </div>
@@ -536,31 +536,26 @@ def faq_html():
           <summary>{q}</summary>
           <div class="faq-answer">{a}</div>
         </details>""" for q, a in items)
-        out.append(f"""<section class="band{' band--linen' if len(out) % 2 == 0 else ''}">
+        head = ""
+        if not out:
+            head = """
+      <div class="band-head">
+        <h2>Frequently asked questions</h2>
+        <p class="measure">If your question is not answered here, message us on WhatsApp.</p>
+      </div>"""
+        attrs = ' id="faq"' if not out else ""
+        linen = " band--linen" if len(out) % 2 == 1 else ""
+        out.append(f"""<section class="band{linen}"{attrs}>
   <div class="wrap cols">
     <p class="label">{heading}</p>
-    <div class="faq-list">{qs}
+    <div>{head}
+      <div class="faq-list">{qs}
+      </div>
     </div>
   </div>
 </section>""")
     return "\n\n".join(out)
 
-
-faq_page = f"""<section class="page-head">
-  <div class="wrap">
-    <p class="label">FAQ</p>
-    <h1>Questions <em>and answers</em></h1>
-    <p class="lede">Answers to the questions parents and students ask us most. If yours is not here, message us on WhatsApp.</p>
-  </div>
-</section>
-
-{faq_html()}
-
-{cta()}"""
-
-page("faq.html", "Questions and Answers | Ink &amp; Quill",
-     "Common questions about IB tuition at Ink and Quill: subjects, levels, classes, internal assessments, fees and how to join.",
-     faq_page, "faq.html")
 
 # --------------------------------------------------------------- Contact
 contact = f"""<section class="page-head">
@@ -590,10 +585,12 @@ contact = f"""<section class="page-head">
       </dl>
     </aside>
   </div>
-</section>"""
+</section>
+
+{faq_html()}"""
 
 page("contact.html", "Contact Ink &amp; Quill",
-     "Message Ink and Quill on WhatsApp or by email about IB tuition.",
+     "Message Ink and Quill on WhatsApp or by email, and read answers to common questions about IB tuition.",
      contact, "contact.html")
 
 print("Built", len(list(OUT.rglob("*.html"))), "pages into", OUT)

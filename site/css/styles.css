@@ -177,7 +177,7 @@ p { margin: 0; }
 .slots-empty { border: 1px dashed var(--sand); padding: clamp(20px, 3vw, 32px); display: flex; flex-direction: column; gap: 0.5rem; max-width: 42em; }
 .slots-empty strong { color: var(--ink); font-weight: 700; }
 .status { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
-#slots { scroll-margin-top: 90px; }
+#slots, #faq { scroll-margin-top: 90px; }
 
 /* Principles: three ruled columns */
 .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); }
