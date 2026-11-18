@@ -238,35 +238,39 @@ LOGO_CAPTIONS = {
     "acs-international": "ACS (International)",
     "sji": "SJI",
     "sji-international": "SJI International",
-    "sota": "SOTA",
+    "sota": "School of the Arts, Singapore",
     "singapore-sports-school": "Singapore Sports School",
     "hwa-chong-international": "Hwa Chong International",
     "nexus": "Nexus International",
     "stamford-american": "Stamford American",
-    "giis": "GIIS",
+    "giis": "Global Indian International School",
 }
 
 
 def schools_html():
-    cells = ""
-    for slug, name, sub in SCHOOLS:
-        full = name + (" " + sub if sub else "")
-        logo = next((f for ext in ("svg", "png", "webp", "jpg")
-                     for f in [OUT / "assets" / "schools" / f"{slug}.{ext}"] if f.exists()), None)
-        if logo:
-            cap = LOGO_CAPTIONS.get(slug, "")
-            inner = (f'<span class="logo-box logo-{slug}"><img src="assets/schools/{logo.name}" alt="{full}" loading="lazy"></span>'
-                     f'<span class="school-sub">{cap}</span>')
-            cls = ' class="has-logo"'
-        else:
-            inner = f'<span class="school-name">{name}</span>' + (f'<span class="school-sub">{sub}</span>' if sub else "")
-            cls = ""
-        cells += f"\n          <li{cls} title=\"{full}\">{inner}</li>"
+    def items(hidden):
+        out = ""
+        for slug, name, sub in SCHOOLS:
+            full = name + (" " + sub if sub else "")
+            logo = next((f for ext in ("svg", "png", "webp", "jpg")
+                         for f in [OUT / "assets" / "schools" / f"{slug}.{ext}"] if f.exists()), None)
+            alt = "" if hidden else full
+            if logo:
+                inner = (f'<span class="logo-box logo-{slug}"><img src="assets/schools/{logo.name}" alt="{alt}" loading="lazy"></span>'
+                         f'<span class="school-sub">{LOGO_CAPTIONS.get(slug, full)}</span>')
+            else:
+                inner = f'<span class="school-name">{name}</span>' + (f'<span class="school-sub">{sub}</span>' if sub else "")
+            out += f'\n            <li{" aria-hidden=\"true\"" if hidden else ""}>{inner}</li>'
+        return out
+    # The list is written twice so the belt can loop without a gap; the copy is hidden from screen readers.
     return f"""      <div class="schools">
         <p class="label">Trusted by students from</p>
-        <ul class="school-list">{cells}
-        </ul>
+        <div class="belt">
+          <ul class="belt-track" aria-label="Schools our students come from">{items(False)}{items(True)}
+          </ul>
+        </div>
       </div>"""
+
 
 # --------------------------------------------------------------- Subjects
 def group_subjects(gid):

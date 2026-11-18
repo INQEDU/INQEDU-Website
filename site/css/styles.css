@@ -175,21 +175,27 @@ p { margin: 0; }
   .gallery-main img { aspect-ratio: 4 / 3; }
 }
 
-/* Schools strip */
+/* Schools belt: a slow, endless row of school crests */
 .schools { margin-top: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; gap: 1.1rem; }
-.school-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); }
-.school-list li { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.35rem; min-height: 104px; padding: 18px 14px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.belt { overflow: hidden; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 26px 0 22px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.belt-track { list-style: none; margin: 0; padding: 0; display: flex; width: max-content; animation: belt 48s linear infinite; }
+.belt:hover .belt-track, .belt:focus-within .belt-track { animation-play-state: paused; }
+.belt-track li { flex: none; width: 200px; padding: 0 20px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.75rem; text-align: center; }
+@keyframes belt { to { transform: translateX(-50%); } }
+.logo-box { height: 76px; width: 100%; display: flex; align-items: center; justify-content: center; }
+.logo-box img { max-height: 76px; max-width: 100%; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: 0.85; transition: filter 0.25s, opacity 0.25s; }
+.belt-track li:hover .logo-box img { filter: none; opacity: 1; }
+.logo-nexus img { filter: grayscale(1) contrast(1.2) brightness(0.62); }
+.belt-track li:hover .logo-nexus img { filter: none; }
 .school-name { font-family: var(--display); font-size: 1rem; line-height: 1.3; color: var(--ink); text-wrap: balance; }
-.school-list li.has-logo { justify-content: flex-start; padding-top: 22px; }
-.logo-box { height: 72px; width: 100%; display: flex; align-items: center; justify-content: center; }
-.school-list li.has-logo img { max-height: 72px; max-width: 86%; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: 0.85; transition: filter 0.25s, opacity 0.25s; }
-.logo-nexus img { filter: grayscale(1) contrast(1.2) brightness(0.62) !important; }
-.school-list li.has-logo:hover .logo-nexus img { filter: none !important; }
-.school-list li.has-logo .school-sub { min-height: 1.4em; text-align: center; letter-spacing: 0.1em; font-size: 0.62rem; }
-.school-list li.has-logo:hover img { filter: none; opacity: 1; }
-.school-sub { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--umber); }
-@media (max-width: 980px) { .school-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .school-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } .school-list li { min-height: 88px; } .school-name { font-size: 0.92rem; } }
+.school-sub { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; line-height: 1.5; text-transform: uppercase; color: var(--umber); text-wrap: balance; }
+@media (max-width: 560px) { .belt-track li { width: 160px; padding: 0 14px; } .logo-box { height: 64px; } .logo-box img { max-height: 64px; } .belt-track { animation-duration: 38s; } }
+@media (prefers-reduced-motion: reduce) {
+  .belt { -webkit-mask-image: none; mask-image: none; }
+  .belt-track { width: auto; flex-wrap: wrap; justify-content: center; row-gap: 28px; animation: none; }
+  .belt-track li[aria-hidden="true"] { display: none; }
+}
 
 /* Subject groups */
 .subject-groups { display: flex; flex-direction: column; gap: clamp(40px, 5vw, 64px); }
