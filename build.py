@@ -212,6 +212,45 @@ def guide_cards(root=""):
 
 
 
+
+# ---------------------------------------------------------------- Schools
+# "Trusted by students from" strip on the homepage.
+# To show a logo, put the file in site/assets/schools/ named after the slug,
+# e.g. site/assets/schools/acs-independent.png (.svg, .png, .jpg or .webp).
+# Schools without a logo file show their name as text.
+SCHOOLS = [
+    ("acs-independent", "Anglo-Chinese School", "Independent"),
+    ("acs-international", "Anglo-Chinese School", "International"),
+    ("sji", "St. Joseph&rsquo;s Institution", ""),
+    ("sji-international", "St. Joseph&rsquo;s Institution", "International"),
+    ("sota", "School of the Arts", "Singapore"),
+    ("singapore-sports-school", "Singapore Sports School", ""),
+    ("hwa-chong-international", "Hwa Chong International School", ""),
+    ("nexus", "Nexus International School", ""),
+    ("stamford-american", "Stamford American International School", ""),
+    ("giis", "Global Indian International School", ""),
+]
+
+
+def schools_html():
+    cells = ""
+    for slug, name, sub in SCHOOLS:
+        full = name + (" " + sub if sub else "")
+        logo = next((f for ext in ("svg", "png", "webp", "jpg")
+                     for f in [OUT / "assets" / "schools" / f"{slug}.{ext}"] if f.exists()), None)
+        if logo:
+            inner = f'<img src="assets/schools/{logo.name}" alt="{full}" loading="lazy">'
+            cls = ' class="has-logo"'
+        else:
+            inner = f'<span class="school-name">{name}</span>' + (f'<span class="school-sub">{sub}</span>' if sub else "")
+            cls = ""
+        cells += f"\n          <li{cls} title=\"{full}\">{inner}</li>"
+    return f"""      <div class="schools">
+        <p class="label">Trusted by students from</p>
+        <ul class="school-list">{cells}
+        </ul>
+      </div>"""
+
 # --------------------------------------------------------------- Subjects
 def group_subjects(gid):
     return [x for x in SUBJECTS if x["group"] == gid]
@@ -383,21 +422,7 @@ home = f"""<section class="hero">
         <figure><img src="assets/photos/class-2.jpg" alt="A class group smiling for a photo, with one student joining by video call on a laptop" width="1280" height="960" loading="lazy"></figure>
         <figure><img src="assets/photos/class-3.jpg" alt="Three people from a class smiling in the classroom" width="1280" height="960" loading="lazy"></figure>
       </div>
-      <div class="schools">
-        <p class="label">Trusted by students from</p>
-        <ul class="school-list">
-          <li><span class="school-name">Anglo-Chinese School</span><span class="school-sub">Independent</span></li>
-          <li><span class="school-name">Anglo-Chinese School</span><span class="school-sub">International</span></li>
-          <li><span class="school-name">St. Joseph&rsquo;s Institution</span></li>
-          <li><span class="school-name">St. Joseph&rsquo;s Institution</span><span class="school-sub">International</span></li>
-          <li><span class="school-name">School of the Arts</span><span class="school-sub">Singapore</span></li>
-          <li><span class="school-name">Singapore Sports School</span></li>
-          <li><span class="school-name">Hwa Chong International School</span></li>
-          <li><span class="school-name">Nexus International School</span></li>
-          <li><span class="school-name">Stamford American International School</span></li>
-          <li><span class="school-name">Global Indian International School</span></li>
-        </ul>
-      </div>
+{schools_html()}
     </div>
   </div>
 </section>
