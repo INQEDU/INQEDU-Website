@@ -232,6 +232,21 @@ SCHOOLS = [
 ]
 
 
+# Short name shown under each logo, so every box reads the same way
+LOGO_CAPTIONS = {
+    "acs-independent": "ACS (Independent)",
+    "acs-international": "ACS (International)",
+    "sji": "SJI",
+    "sji-international": "SJI International",
+    "sota": "SOTA",
+    "singapore-sports-school": "Singapore Sports School",
+    "hwa-chong-international": "Hwa Chong International",
+    "nexus": "Nexus International",
+    "stamford-american": "Stamford American",
+    "giis": "GIIS",
+}
+
+
 def schools_html():
     cells = ""
     for slug, name, sub in SCHOOLS:
@@ -239,7 +254,9 @@ def schools_html():
         logo = next((f for ext in ("svg", "png", "webp", "jpg")
                      for f in [OUT / "assets" / "schools" / f"{slug}.{ext}"] if f.exists()), None)
         if logo:
-            inner = f'<img src="assets/schools/{logo.name}" alt="{full}" loading="lazy">'
+            cap = LOGO_CAPTIONS.get(slug, "")
+            inner = (f'<span class="logo-box logo-{slug}"><img src="assets/schools/{logo.name}" alt="{full}" loading="lazy"></span>'
+                     f'<span class="school-sub">{cap}</span>')
             cls = ' class="has-logo"'
         else:
             inner = f'<span class="school-name">{name}</span>' + (f'<span class="school-sub">{sub}</span>' if sub else "")
