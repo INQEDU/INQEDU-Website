@@ -54,7 +54,7 @@ def page(path, title, description, body, current, root=""):
   <div class="wrap">
     <a class="brand" href="{root}index.html" aria-label="Ink and Quill home">
       <img src="{root}assets/mark.png" alt="" width="61" height="50">
-      <span class="brand-name">{BRAND}<small>IB Tuition</small></span>
+      <span class="brand-name">{BRAND}</span>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav" aria-label="Main">

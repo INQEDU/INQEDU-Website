@@ -79,7 +79,8 @@ p { margin: 0; }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 88px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand img { height: 60px; width: auto; }
-.brand-name { font-family: var(--display); font-size: clamp(1.5rem, 2.4vw, 1.85rem); color: var(--ink); line-height: 1.1; white-space: nowrap; }
+@media (max-width: 420px) { .brand img { height: 48px; } .brand { gap: 8px; } }
+.brand-name { font-family: var(--display); font-size: clamp(1.65rem, 3.4vw, 2.55rem); color: var(--ink); line-height: 1; white-space: nowrap; letter-spacing: -0.005em; }
 .brand-name small { display: block; font-family: var(--body); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--umber); margin-top: 6px; }
 .nav { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 36px); }
 .nav a:not(.btn) { font-weight: 700; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; }
