@@ -71,7 +71,7 @@ def page(path, title, description, body, current, root=""):
     <div class="top">
       <div>
         <img class="logo" src="{root}assets/logo.png" alt="Ink and Quill" width="820" height="392">
-        <p class="measure">IB Diploma tuition in seven subjects, at Standard and Higher Level.</p>
+        <p class="measure">IB Diploma tuition in eight subjects, at Standard and Higher Level.</p>
       </div>
       <div>
         <p class="label">Explore</p>
@@ -293,7 +293,7 @@ def home_subjects():
     <p class="label">Subjects</p>
     <div>
       <div class="band-head">
-        <h2>Seven IB Diploma subjects, at Standard and Higher Level</h2>
+        <h2>Eight IB Diploma subjects, at Standard and Higher Level</h2>
         <p class="measure">Every class follows the IB Diploma syllabus. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
       </div>
       <div class="groups">{"".join(cols)}</div>
@@ -464,7 +464,7 @@ home = f"""<section class="hero">
         </div>
         <div>
           <h3>A new way into the subject</h3>
-          <p>We start from how each subject thinks: how a writer, a historian or a mathematician builds an argument. Then you learn to make that argument yourself.</p>
+          <p>We start from how each subject thinks: how a writer, an economist or a mathematician builds an argument. Then you learn to make that argument yourself.</p>
         </div>
         <div>
           <h3>Tutors who know the course</h3>
@@ -478,7 +478,7 @@ home = f"""<section class="hero">
 {cta()}"""
 
 page("index.html", "Ink &amp; Quill IB Tuition",
-     "IB Diploma tuition in English A Language and Literature, Literature, History, Geography, Business Management and Mathematics, at SL and HL.",
+     "IB Diploma tuition in English A Language and Literature, Literature, Business Management, Economics, Geography, Psychology and Mathematics, at SL and HL.",
      home, "index.html")
 
 # --------------------------------------------------------------- Classes
@@ -486,7 +486,7 @@ classes = f"""<section class="page-head">
   <div class="wrap">
     <p class="label">Classes</p>
     <h1>IB Diploma subjects, <em>Standard and Higher Level</em></h1>
-    <p class="lede">We teach seven IB Diploma subjects across three subject groups. Classes are interactive: you discuss, practise, and get feedback you can act on. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
+    <p class="lede">We teach eight IB Diploma subjects across three subject groups. Classes are interactive: you discuss, practise, and get feedback you can act on. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
   </div>
 </section>
 
@@ -508,7 +508,7 @@ classes = f"""<section class="page-head">
 </section>"""
 
 page("classes.html", "Subjects and Classes at Ink &amp; Quill",
-     "IB Diploma classes in English A Language and Literature, Literature, History, Geography, Business Management and Mathematics, at Standard and Higher Level.",
+     "IB Diploma classes in English A Language and Literature, Literature, Business Management, Economics, Geography, Psychology and Mathematics, at Standard and Higher Level.",
      classes, "classes.html")
 
 for x in SUBJECTS:
@@ -559,7 +559,7 @@ for g in GUIDES:
 FAQS = [
     ("Subjects and courses", [
         ("Which subjects do you teach?",
-         '<p>We teach seven IB Diploma subjects: English A: Language &amp; Literature, English A: Literature, History, Geography, Business Management, Mathematics: Analysis &amp; Approaches, and Mathematics: Applications &amp; Interpretation. You can see what we cover in each on the <a href="classes.html">classes page</a>.</p>'),
+         '<p>We teach eight IB Diploma subjects: English A: Language &amp; Literature, English A: Literature, Business Management, Economics, Geography, Psychology, Mathematics: Analysis &amp; Approaches, and Mathematics: Applications &amp; Interpretation. You can see what we cover in each on the <a href="classes.html">classes page</a>.</p>'),
         ("Do you teach Standard Level and Higher Level?",
          "<p>Yes. Every subject is taught at both Standard Level (SL) and Higher Level (HL). HL students also prepare for the extra components their course requires, such as Paper 3 or the HL Essay.</p>"),
         ("What is the difference between English A: Language &amp; Literature and English A: Literature?",
@@ -567,9 +567,9 @@ FAQS = [
         ("What is the difference between Maths: Analysis &amp; Approaches and Applications &amp; Interpretation?",
          "<p>Analysis &amp; Approaches puts more weight on algebra, calculus and proof, and Paper 1 is taken without a calculator. Applications &amp; Interpretation puts more weight on statistics, modelling and using technology to solve problems in context.</p><p>Some university courses, particularly in mathematics, engineering and the physical sciences, ask for Analysis &amp; Approaches at HL. Check the entry requirements of the courses you are interested in before you choose.</p>"),
         ("My school is teaching a new syllabus. Do your classes follow it?",
-         "<p>Yes. We teach the course that your exam session follows. The IB is revising several subjects, including History, which has a new course first examined in May 2028. Tell us your exam year when you message us and we will make sure your classes match it.</p>"),
+         "<p>Yes. We teach the course that your exam session follows. The IB is revising several subjects. Psychology, for example, has a new course first examined in May 2027. Tell us your exam year when you message us and we will make sure your classes match it.</p>"),
         ("Do you help with internal assessments and coursework?",
-         "<p>Yes. We guide students through each subject's internally assessed work: the Individual Oral and HL Essay in English, the historical investigation, the Geography fieldwork investigation, the Business Management research project and the mathematical exploration. We help you plan, structure and improve your work. The work you submit must be your own.</p>"),
+         "<p>Yes. We guide students through each subject's internally assessed work: the Individual Oral and HL Essay in English, the Business Management research project, the Economics portfolio, the Geography fieldwork investigation, the Psychology research proposal and the mathematical exploration. We help you plan, structure and improve your work. The work you submit must be your own.</p>"),
     ]),
     ("Our classes", [
         ("What are your classes like?",

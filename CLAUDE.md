@@ -4,8 +4,8 @@
 - `site/css/styles.css`, `site/js/main.js` and `site/assets/` are hand-edited, not generated.
 - Cloudflare deploys the `site/` folder from `main`. There is no build step on Cloudflare.
 - Brand: fonts Libre Baskerville (display) and Almarai (body), self-hosted in `site/assets/fonts`. Colours #F6F3EC, #ECE4DA, #B9A590, #574C3F, #36302A.
-- Seven subjects with equal emphasis on the classes pages: English A Language & Literature, English A Literature, History, Geography, Business Management, Maths AA, Maths AI (all SL and HL). The homepage hero label reads "IB Tuition Specialists".
-- History and Geography have revised IB courses (History first examined May 2028), so their assessment tables show only figures common to both versions. Verify before adding timings.
+- Eight subjects with equal emphasis on the classes pages: English A Language & Literature, English A Literature, Business Management, Economics, Geography, Psychology, Maths AA, Maths AI (all SL and HL). History is no longer offered. The homepage hero label reads "IB Tuition Specialists".
+- Geography's assessment table shows only figures common to the current and revised courses. Psychology follows the revised course (first examined May 2027); its HL Paper 2/3 weightings are not shown because they were not confirmed. Verify before adding timings.
 - Preview larger changes on a branch first: Cloudflare builds a preview for each branch.
 - Enquiries go to WhatsApp (+65 8866 5396) via `whatsapp_link()` in `build.py`, which pre-fills a message; subject pages name the subject in it. There is no contact form.
 - FAQ answers live in `FAQS` in `build.py` and appear at the bottom of the contact page (`contact.html#faq`). Do not add facts the owner has not confirmed (fees, class sizes, trial lessons, location, one-to-one lessons).
