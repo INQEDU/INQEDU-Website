@@ -13,3 +13,4 @@
 - The "Trusted by students from" belt (scrolls continuously in full colour, static for reduced motion) comes from `SCHOOLS` in `build.py`. A logo file in `site/assets/schools/<slug>.<ext>` replaces that school's text name automatically. Only add logos the owner supplies.
 - Testimonials live in `TESTIMONIALS` in `build.py` (homepage, after the school belt). Quotes are verbatim from students; do not edit wording without the owner's say-so.
 - The Guides page is switched off (`SHOW_GUIDES = False` in `build.py`) while the owner reworks it. Its layout and the three guides in `GUIDES` are kept; set it to True and rebuild to restore it, then remove the guides lines from `site/_redirects`.
+- Tutor profiles live in `TUTORS` in `build.py` and build `tutor.html` (menu item "Tutor"). Add a dict to add a tutor. Lucas's write-up and quote are the owner's text; keep the wording.

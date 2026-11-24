@@ -34,7 +34,7 @@ def whatsapp_link(subject=None):
 # guides are kept below; set SHOW_GUIDES = True and rebuild to bring it back.
 SHOW_GUIDES = False
 
-NAV = [("Home", "index.html"), ("Classes", "classes.html")] + ([("Guides", "guides.html")] if SHOW_GUIDES else []) + [("Contact", "contact.html")]
+NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Tutor", "tutor.html")] + ([("Guides", "guides.html")] if SHOW_GUIDES else []) + [("Contact", "contact.html")]
 
 
 def page(path, title, description, body, current, root=""):
@@ -82,6 +82,7 @@ def page(path, title, description, body, current, root=""):
         <p class="label">Explore</p>
         <ul>
           <li><a href="{root}classes.html">Subjects and classes</a></li>
+          <li><a href="{root}tutor.html">Our tutor</a></li>
 {guides_link}          <li><a href="{root}contact.html#faq">Questions and answers</a></li>
           <li><a href="{root}contact.html">Contact</a></li>
         </ul>
@@ -611,6 +612,69 @@ else:
     import shutil
     (OUT / "guides.html").unlink(missing_ok=True)
     shutil.rmtree(OUT / "guides", ignore_errors=True)
+
+# ------------------------------------------------------------------ Tutor
+# One entry per tutor. Add another dict to show a second profile below the first.
+TUTORS = [
+    {
+        "name": "Lucas",
+        "role": "Co-founder, Head Tutor",
+        "photo": "assets/photos/tutor-lucas.jpg",
+        "photo_alt": "Lucas crouching beside an alpaca on a sunny field",
+        "qualifications": [
+            "44/45 IB, A for TOK &amp; EE, average score of 84%",
+            "3 years of teaching experience, over 60 students taught",
+            "Offered MOE Teaching Scholar",
+            "Medical Student pursuing M.B.B.S",
+            "Author of Literature Ten-year-series (MOE Authorised, Publishing in 2027)",
+        ],
+        "about": [
+            "Lucas is an exceptional tutor that believes in the potential of every student. As someone who hated literature many moons ago, he relates to the pertinent struggle and perceived inaccessibility of this harrowing subject. Lucas teaches by making literature less daunting, showing how it exists in everyday life. He also simplifies essay structures, streamlining the writing process for exams. Many of his students eventually realise that they already have an innate ability to analyse texts, thereby allowing them to appreciate and understand literature on a deeper level.",
+        ],
+        "quote": "Most teachers teach subjects, I teach students. Beyond working towards a 7, I make sure my students leave with a newfound love for literature and a robust foundation built through confidence.",
+    },
+]
+
+
+def tutor_profiles():
+    out = []
+    for t in TUTORS:
+        quals = "".join(f"<li>{q}</li>" for q in t["qualifications"])
+        about = "".join(f"<p>{para}</p>" for para in t["about"])
+        quote = f"""
+        <blockquote class="tutor-quote">
+          <p>&ldquo;{t['quote']}&rdquo;</p>
+          <cite>{t['name']}</cite>
+        </blockquote>""" if t.get("quote") else ""
+        out.append(f"""<article class="tutor">
+      <figure class="tutor-photo"><img src="{t['photo']}" alt="{t['photo_alt']}" width="1000" height="1000"></figure>
+      <div class="tutor-body">
+        <header class="tutor-head">
+          <h2>{t['name']}</h2>
+          <p class="tutor-role">{t['role']}</p>
+        </header>
+        <div class="tutor-quals">
+          <p class="label">Qualifications</p>
+          <ul>{quals}</ul>
+        </div>
+        <div class="tutor-about">{about}</div>{quote}
+      </div>
+    </article>""")
+    return "\n    ".join(out)
+
+
+tutor_page = f"""<section class="tutor-page">
+  <div class="wrap">
+    <h1 class="label tutor-page-label">Tutor</h1>
+    {tutor_profiles()}
+  </div>
+</section>
+
+{cta()}"""
+
+page("tutor.html", "Our Tutor | Ink &amp; Quill",
+     "Meet Lucas, co-founder and head tutor at Ink and Quill: 44/45 IB, three years of teaching experience and over 60 students taught.",
+     tutor_page, "tutor.html")
 
 # -------------------------------------------------------------------- FAQ
 FAQS = [
