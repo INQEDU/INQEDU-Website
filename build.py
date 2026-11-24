@@ -653,18 +653,20 @@ def tutor_profiles():
           <cite>{t['name']}</cite>
         </blockquote>""" if t.get("quote") else ""
         out.append(f"""<article class="tutor">
-      <figure class="tutor-photo"><img src="{t['photo']}" alt="{t['photo_alt']}" width="1000" height="1000"></figure>
-      <div class="tutor-body">
-        <header class="tutor-head">
-          <h2>{t['name']}</h2>
-          <p class="tutor-role">{t['role']}</p>
-        </header>
-        <div class="tutor-quals">
-          <p class="label">Qualifications</p>
-          <ul>{quals}</ul>
+      <div class="tutor-top">
+        <figure class="tutor-photo"><img src="{t['photo']}" alt="{t['photo_alt']}" width="1000" height="1000"></figure>
+        <div class="tutor-side">
+          <header class="tutor-head">
+            <h2>{t['name']}</h2>
+            <p class="tutor-role">{t['role']}</p>
+          </header>
+          <div class="tutor-quals">
+            <p class="label">Qualifications</p>
+            <ul>{quals}</ul>
+          </div>
         </div>
-        <div class="tutor-about">{about}</div>{quote}
       </div>
+      <div class="tutor-about">{about}</div>{quote}
     </article>""")
     return "\n    ".join(out)
 
