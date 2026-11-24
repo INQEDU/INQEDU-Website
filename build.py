@@ -669,9 +669,16 @@ def tutor_profiles():
     return "\n    ".join(out)
 
 
-tutor_page = f"""<section class="tutor-page">
+tutor_page = f"""<section class="page-head">
   <div class="wrap">
-    <h1 class="label tutor-page-label">Tutor</h1>
+    <p class="label">Tutor</p>
+    <h1>Tutor Profile</h1>
+    <p class="lede">Get to know the people behind Ink &amp; Quill. Here you can read about each tutor&rsquo;s background, qualifications and approach to teaching, so you know exactly who you will be learning from before your first lesson.</p>
+  </div>
+</section>
+
+<section class="tutor-page">
+  <div class="wrap">
     {tutor_profiles()}
   </div>
 </section>
