@@ -671,7 +671,6 @@ def tutor_profiles():
 
 tutor_page = f"""<section class="page-head page-head--dark">
   <div class="wrap">
-    <p class="label">Tutor</p>
     <h1>Tutor Profile</h1>
     <p class="lede">Get to know the people behind Ink &amp; Quill. Here you can read about each tutor&rsquo;s background, qualifications and approach to teaching, so you know exactly who you will be learning from before your first lesson.</p>
   </div>
