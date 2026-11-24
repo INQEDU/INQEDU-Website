@@ -266,6 +266,55 @@ def schools_html():
       </div>"""
 
 
+
+# ----------------------------------------------------------- Testimonials
+# (name, school, quote, result) - result is optional, e.g. "Grade 4 &rarr; 6"
+TESTIMONIALS = [
+    ("Krishna", "St. Joseph&rsquo;s Institution",
+     "I&rsquo;d definitely recommend joining the langlit class! I find the teaching style specific and friendly towards weaker students. I used to attend another tuition centre and I found Lucas to be much more effective! The paper 1 notes and cheatsheets provided were super helpful leading up to IB and I managed to jump from grade 4 to 6! Lucas always taught us a formulaic way of approaching paper 1 and 2 using a combination of different categories of techniques. I found that helpful for those who were not naturally good at langlit like me. His marking and feedback was specific and he understood my individual strengths and weaknesses, from which he tailored feedback accordingly. He is also very encouraging!",
+     "Grade 4 &rarr; 6"),
+    ("Darius", "St. Joseph&rsquo;s Institution",
+     "Lucas was super effective as a tutor, in my opinion! Lucas had been tutoring me since the end of year 5, before which I always struggled with langlit always got grade 4s. With Lucas, my final IB grade improved to a 6.",
+     "Grade 4 &rarr; 6"),
+    ("Sofia", "St. Joseph&rsquo;s Institution",
+     "Lucas gives really good personalised feedback on my practice essays, from which I managed to learn what I can improve on my next practice essay!",
+     ""),
+    ("Natasha", "St. Joseph&rsquo;s Institution",
+     "Lucas was super helpful, especially with paper 1, where he had concise notes about the intricacies and analytical techniques required. For paper 2, his techniques on question analysis and paragraph prepping were very helpful in constructing general ideas before applying them in the final IB exam.",
+     ""),
+    ("Zhi Yang", "St. Joseph&rsquo;s Institution",
+     "Lucas is a dedicated and helpful teacher who always goes above and beyond to help any student, despite his heavy IB workload. He creates original notes which are comprehensive, yet concise. His feedback was relevant and helped me correct many mistakes in my writing.",
+     ""),
+    ("A.C.", "St. Joseph&rsquo;s Institution",
+     "Lucas is a really passionate and hardworking tutor. Despite juggling IB in addition to tutoring, he still provided curated notes and marked his students&rsquo; work weekly. His teaching was very clear and detailed which made writing Langlit essays much more enjoyable.",
+     ""),
+]
+
+
+def testimonials_html():
+    cards = ""
+    for name, school, quote, result in TESTIMONIALS:
+        tag = f'<span class="result">{result}</span>' if result else ""
+        cards += f"""
+        <figure class="testimonial">
+          {tag}
+          <blockquote>{quote}</blockquote>
+          <figcaption><strong>{name}</strong><span>{school}</span></figcaption>
+        </figure>"""
+    return f"""<section class="band band--linen">
+  <div class="wrap cols">
+    <p class="label">Testimonials</p>
+    <div>
+      <div class="band-head">
+        <h2>What our students say</h2>
+      </div>
+      <div class="testimonials">{cards}
+      </div>
+    </div>
+  </div>
+</section>"""
+
+
 # --------------------------------------------------------------- Subjects
 def group_subjects(gid):
     return [x for x in SUBJECTS if x["group"] == gid]
@@ -442,6 +491,8 @@ home = f"""<section class="hero">
     </div>
   </div>
 </section>
+
+{testimonials_html()}
 
 {home_subjects()}
 
