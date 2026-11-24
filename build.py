@@ -37,6 +37,12 @@ SHOW_GUIDES = False
 NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Tutor", "tutor.html")] + ([("Guides", "guides.html")] if SHOW_GUIDES else []) + [("Contact", "contact.html")]
 
 
+def asset_version(rel):
+    """Short fingerprint of a file, added to its link so browsers fetch the new copy after a change."""
+    import hashlib
+    return hashlib.md5((OUT / rel).read_bytes()).hexdigest()[:8]
+
+
 def page(path, title, description, body, current, root=""):
     guides_link = f'          <li><a href="{root}guides.html">Guides and blog</a></li>\n' if SHOW_GUIDES else ""
     links = "".join(
@@ -51,7 +57,7 @@ def page(path, title, description, body, current, root=""):
 <title>{title}</title>
 <meta name="description" content="{description}">
 <link rel="icon" href="{root}assets/favicon.png">
-<link rel="stylesheet" href="{root}css/styles.css">
+<link rel="stylesheet" href="{root}css/styles.css?v={asset_version('css/styles.css')}">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -102,7 +108,7 @@ def page(path, title, description, body, current, root=""):
     </div>
   </div>
 </footer>
-<script src="{root}js/main.js"></script>
+<script src="{root}js/main.js?v={asset_version('js/main.js')}"></script>
 </body>
 </html>
 """

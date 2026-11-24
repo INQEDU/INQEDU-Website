@@ -14,3 +14,4 @@
 - Testimonials live in `TESTIMONIALS` in `build.py` (homepage, after the school belt). Quotes are verbatim from students; do not edit wording without the owner's say-so.
 - The Guides page is switched off (`SHOW_GUIDES = False` in `build.py`) while the owner reworks it. Its layout and the three guides in `GUIDES` are kept; set it to True and rebuild to restore it, then remove the guides lines from `site/_redirects`.
 - Tutor profiles live in `TUTORS` in `build.py` and build `tutor.html` (menu item "Tutor"). Add a dict to add a tutor. Lucas's write-up and quote are the owner's text; keep the wording.
+- Stylesheet and script links carry a `?v=` fingerprint (`asset_version()` in `build.py`), so a style change reaches visitors without a hard refresh. Always rebuild after editing CSS or JS.
