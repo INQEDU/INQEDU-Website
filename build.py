@@ -272,7 +272,7 @@ def schools_html():
 TESTIMONIALS = [
     ("Krishna", "St. Joseph&rsquo;s Institution",
      "I&rsquo;d definitely recommend joining the langlit class! I find the teaching style specific and friendly towards weaker students. I used to attend another tuition centre and I found Lucas to be much more effective! The paper 1 notes and cheatsheets provided were super helpful leading up to IB and I managed to jump from grade 4 to 6! Lucas always taught us a formulaic way of approaching paper 1 and 2 using a combination of different categories of techniques. I found that helpful for those who were not naturally good at langlit like me. His marking and feedback was specific and he understood my individual strengths and weaknesses, from which he tailored feedback accordingly. He is also very encouraging!",
-     "Grade 4 &rarr; 6"),
+     ""),
     ("Darius", "St. Joseph&rsquo;s Institution",
      "Lucas was super effective as a tutor, in my opinion! Lucas had been tutoring me since the end of year 5, before which I always struggled with langlit always got grade 4s. With Lucas, my final IB grade improved to a 6.",
      "Grade 4 &rarr; 6"),
