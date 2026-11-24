@@ -275,7 +275,7 @@ TESTIMONIALS = [
      ""),
     ("Darius", "St. Joseph&rsquo;s Institution",
      "Lucas was super effective as a tutor, in my opinion! Lucas had been tutoring me since the end of year 5, before which I always struggled with langlit always got grade 4s. With Lucas, my final IB grade improved to a 6.",
-     "Grade 4 &rarr; 6"),
+     ""),
     ("Sofia", "St. Joseph&rsquo;s Institution",
      "Lucas gives really good personalised feedback on my practice essays, from which I managed to learn what I can improve on my next practice essay!",
      ""),
