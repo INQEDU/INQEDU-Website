@@ -226,9 +226,6 @@ SCHOOLS = [
     ("sota", "School of the Arts", "Singapore"),
     ("singapore-sports-school", "Singapore Sports School", ""),
     ("hwa-chong-international", "Hwa Chong International School", ""),
-    ("nexus", "Nexus International School", ""),
-    ("stamford-american", "Stamford American International School", ""),
-    ("giis", "Global Indian International School", ""),
 ]
 
 
@@ -241,9 +238,6 @@ LOGO_CAPTIONS = {
     "sota": "School of the Arts, Singapore",
     "singapore-sports-school": "Singapore Sports School",
     "hwa-chong-international": "Hwa Chong International",
-    "nexus": "Nexus International",
-    "stamford-american": "Stamford American",
-    "giis": "Global Indian International School",
 }
 
 
