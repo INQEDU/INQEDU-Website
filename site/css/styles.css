@@ -302,6 +302,11 @@ textarea { min-height: 150px; resize: vertical; }
 .details dd { margin: 0; }
 .todo { font-style: italic; opacity: 0.8; }
 
+/* Dark page introduction (used on the tutor page) */
+.page-head--dark { background: var(--umber); color: var(--linen); }
+.page-head--dark h1 { color: var(--paper); }
+.page-head--dark .label { color: var(--sand); }
+
 /* Tutor profiles: photo beside the text, shown whole */
 .tutor-page { padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 8vw, 104px); background: var(--linen); }
 .tutor-page-label { font-family: var(--body); font-weight: 700; font-size: 0.75rem; margin: 0 0 clamp(24px, 3vw, 40px); padding-top: 0.9em; border-top: 1px solid var(--ink); display: inline-block; padding-right: 3em; }

@@ -669,7 +669,7 @@ def tutor_profiles():
     return "\n    ".join(out)
 
 
-tutor_page = f"""<section class="page-head">
+tutor_page = f"""<section class="page-head page-head--dark">
   <div class="wrap">
     <p class="label">Tutor</p>
     <h1>Tutor Profile</h1>
