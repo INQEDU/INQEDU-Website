@@ -12,3 +12,4 @@
 - Homepage class photos are in `site/assets/photos/`; metadata is stripped before adding. They show students, so confirm consent with the owner before adding new ones.
 - The "Trusted by students from" belt (scrolls continuously in full colour, static for reduced motion) comes from `SCHOOLS` in `build.py`. A logo file in `site/assets/schools/<slug>.<ext>` replaces that school's text name automatically. Only add logos the owner supplies.
 - Testimonials live in `TESTIMONIALS` in `build.py` (homepage, after the school belt). Quotes are verbatim from students; do not edit wording without the owner's say-so.
+- The Guides page is switched off (`SHOW_GUIDES = False` in `build.py`) while the owner reworks it. Its layout and the three guides in `GUIDES` are kept; set it to True and rebuild to restore it, then remove the guides lines from `site/_redirects`.

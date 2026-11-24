@@ -30,10 +30,15 @@ def whatsapp_link(subject=None):
     return f"https://wa.me/{WHATSAPP}?text={quote(text)}"
 
 
-NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Guides", "guides.html"), ("Contact", "contact.html")]
+# The Guides page is hidden while it is being reworked. Its layout and the three
+# guides are kept below; set SHOW_GUIDES = True and rebuild to bring it back.
+SHOW_GUIDES = False
+
+NAV = [("Home", "index.html"), ("Classes", "classes.html")] + ([("Guides", "guides.html")] if SHOW_GUIDES else []) + [("Contact", "contact.html")]
 
 
 def page(path, title, description, body, current, root=""):
+    guides_link = f'          <li><a href="{root}guides.html">Guides and blog</a></li>\n' if SHOW_GUIDES else ""
     links = "".join(
         f'<a href="{root}{href}"{" aria-current=\"page\"" if href == current else ""}>{name}</a>'
         for name, href in NAV
@@ -77,8 +82,7 @@ def page(path, title, description, body, current, root=""):
         <p class="label">Explore</p>
         <ul>
           <li><a href="{root}classes.html">Subjects and classes</a></li>
-          <li><a href="{root}guides.html">Guides and blog</a></li>
-          <li><a href="{root}contact.html#faq">Questions and answers</a></li>
+{guides_link}          <li><a href="{root}contact.html#faq">Questions and answers</a></li>
           <li><a href="{root}contact.html">Contact</a></li>
         </ul>
       </div>
@@ -582,24 +586,31 @@ guides = f"""<section class="page-head">
 
 {cta()}"""
 
-page("guides.html", "Ink &amp; Quill Guides and Blog",
-     "Free guides to IB English Language and Literature and Literature: Paper 1, Paper 2, the Individual Oral and the HL Essay.",
-     guides, "guides.html")
+if SHOW_GUIDES:
+    page("guides.html", "Ink &amp; Quill Guides and Blog",
+         "Free guides to IB English Language and Literature and Literature: Paper 1, Paper 2, the Individual Oral and the HL Essay.",
+         guides, "guides.html")
 
-for g in GUIDES:
-    article = f"""<article class="article">
-  <header>
-    <p class="meta"><span>{g['kind']}</span><span>{g['minutes']} min read</span></p>
-    <h1>{g['title']}</h1>
-    <p class="lede">{g['summary']}</p>
-  </header>
-  <div class="prose">{g['body']}</div>
-  <footer>
-    <a class="more" href="../guides.html">All guides</a>
-    <a class="btn" href="../contact.html">Ask about classes</a>
-  </footer>
-</article>"""
-    page(f"guides/{g['slug']}.html", f"{g['title']} | Ink &amp; Quill", g["summary"], article, "guides.html", root="../")
+    for g in GUIDES:
+        article = f"""<article class="article">
+      <header>
+        <p class="meta"><span>{g['kind']}</span><span>{g['minutes']} min read</span></p>
+        <h1>{g['title']}</h1>
+        <p class="lede">{g['summary']}</p>
+      </header>
+      <div class="prose">{g['body']}</div>
+      <footer>
+        <a class="more" href="../guides.html">All guides</a>
+        <a class="btn" href="../contact.html">Ask about classes</a>
+      </footer>
+    </article>"""
+        page(f"guides/{g['slug']}.html", f"{g['title']} | Ink &amp; Quill", g["summary"], article, "guides.html", root="../")
+
+else:
+    # remove any guide pages left from an earlier build
+    import shutil
+    (OUT / "guides.html").unlink(missing_ok=True)
+    shutil.rmtree(OUT / "guides", ignore_errors=True)
 
 # -------------------------------------------------------------------- FAQ
 FAQS = [
