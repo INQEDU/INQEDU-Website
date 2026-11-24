@@ -439,7 +439,8 @@ home = f"""<section class="hero">
         <p class="measure">Every class is built around conversation: reading closely, testing ideas against each other, and arguing them out together.</p>
       </div>
       <div class="gallery">
-        <figure class="gallery-main"><img src="assets/photos/class-1.jpg" alt="Students around a table during a class, with tablets, a whiteboard of notes and one person standing with a book" width="1280" height="960" loading="lazy"></figure>
+        <figure class="gallery-main"><img src="assets/photos/class-main.jpg" alt="Two students giving a thumbs up in the classroom beside a screen showing a classmate joining from outdoors, with an inset of the whole class around the table" width="1224" height="816"></figure>
+        <figure><img src="assets/photos/class-1.jpg" alt="Students around a table during a class, with tablets, a whiteboard of notes and one person standing with a book" width="1280" height="960" loading="lazy"></figure>
         <figure><img src="assets/photos/class-2.jpg" alt="A class group smiling for a photo, with one student joining by video call on a laptop" width="1280" height="960" loading="lazy"></figure>
         <figure><img src="assets/photos/class-3.jpg" alt="Three people from a class smiling in the classroom" width="1280" height="960" loading="lazy"></figure>
       </div>
