@@ -511,7 +511,7 @@ home = f"""<section class="hero">
       <p class="label">IB Tuition Specialists</p>
       <h1>Read like a writer. <em>Write like a critic.</em></h1>
       <div class="actions">
-        <a class="btn btn--ghost btn--large" href="classes.html">Our Classes</a>
+        <a class="btn btn--large btn--arrow" href="classes.html">Our Classes <span aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
     <figure class="reading" aria-label="An annotated passage">
