@@ -67,6 +67,7 @@ p { margin: 0; }
 .btn:hover { background: var(--umber); border-color: var(--umber); }
 .btn--ghost { background: transparent; color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn--large { font-size: 0.95rem; padding: 1.25em 2.6em; letter-spacing: 0.14em; border-width: 1.5px; }
 .btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
 .btn--light:hover { background: var(--linen); border-color: var(--linen); color: var(--ink); }
 .more { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: inline-flex; gap: 0.6em; align-items: center; border-bottom: 1px solid var(--sand); padding-bottom: 0.35em; }
