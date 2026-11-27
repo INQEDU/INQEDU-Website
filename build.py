@@ -532,6 +532,51 @@ home = f"""<section class="hero">
   </div>
 </section>
 
+<section class="band band--linen story" id="our-story">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Our story</h2>
+      <p class="measure">Ink &amp; Quill began with one subject, and one question: why do so many capable students struggle to score in it?</p>
+    </div>
+    <ol class="story-path">
+      <li>
+        <span class="story-num">01</span>
+        <p class="story-step">The problem</p>
+        <p class="story-stat">&lt;7%</p>
+        <p>Our head tutor, Lucas, saw how many students struggled to score in IB Language &amp; Literature. Fewer than 7% of students achieve a 7, at SL or HL.</p>
+      </li>
+      <li>
+        <span class="story-num">02</span>
+        <p class="story-step">The gap</p>
+        <h3>Few places to turn</h3>
+        <p>Students lacked good resources and people to reach out to. In the small world of IB tuition, few centres offered a tailored approach where students could grow both their skill and their love for the subject.</p>
+      </li>
+      <li>
+        <span class="story-num">03</span>
+        <p class="story-step">The insight</p>
+        <h3>Humanities must be experienced</h3>
+        <p>Lucas found that Language &amp; Literature, like the other humanities, cannot be learned from textbooks alone. His lessons draw on real-life contexts, so students see why what they learn matters.</p>
+      </li>
+      <li>
+        <span class="story-num">04</span>
+        <p class="story-step">The centre</p>
+        <h3>Ink &amp; Quill</h3>
+        <p>We started the centre to share this way of teaching and learning, in the hope that more students fall in love with the humanities.</p>
+      </li>
+    </ol>
+    <div class="pedagogy">
+      <p class="label">Our pedagogy</p>
+      <p class="pedagogy-line">Most teachers teach subjects.<br><em>We teach students.</em></p>
+      <p class="pedagogy-text">Our lessons go beyond teaching the subject. We build a connection between the student, the teacher and the subject, and that connection is what creates a passion for the subject and the drive to do well.</p>
+      <ul class="pedagogy-points">
+        <li><h3>Relatable and engaging</h3><p>Lessons begin from what students already know, so the subject feels approachable.</p></li>
+        <li><h3>Grounded in real life</h3><p>Every text and idea is tied to real-world contexts, so the learning feels relevant.</p></li>
+        <li><h3>Built on connection</h3><p>Student, teacher and subject come together, turning lessons into an experience rather than a syllabus.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="band">
   <div class="wrap">
     <div>

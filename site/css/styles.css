@@ -190,6 +190,37 @@ p { margin: 0; }
   .belt-track li[aria-hidden="true"] { display: none; }
 }
 
+/* Our story: a four-step path, then the pedagogy panel */
+.story-path { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 36px); position: relative; }
+.story-path::before { content: ""; position: absolute; left: 0; right: 0; top: 19px; border-top: 1px solid var(--sand); }
+.story-path li { position: relative; display: flex; flex-direction: column; gap: 0.6rem; }
+.story-num { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); border: 1px solid var(--umber); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--ink); margin-bottom: 0.6rem; position: relative; }
+.story-path li:last-child .story-num { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.story-step { font-weight: 700; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--umber); }
+.story-path h3 { font-size: 1.3rem; }
+.story-stat { font-family: var(--display); font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.story-path li > p:last-child { font-size: 0.95rem; line-height: 1.65; }
+.pedagogy { margin-top: clamp(48px, 6vw, 80px); background: var(--ink); color: var(--linen); padding: clamp(32px, 5vw, 64px); display: flex; flex-direction: column; gap: 1.2rem; }
+.pedagogy .label { color: var(--sand); }
+.pedagogy-line { font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 3.2rem); line-height: 1.2; color: var(--paper); text-wrap: balance; }
+.pedagogy-line em { color: var(--sand); }
+.pedagogy-text { max-width: 40em; font-size: 1.05rem; line-height: 1.7; }
+.pedagogy-points { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.pedagogy-points li { border-top: 1px solid rgba(185, 165, 144, 0.5); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.pedagogy-points h3 { color: var(--paper); font-size: 1.15rem; }
+.pedagogy-points p { font-size: 0.95rem; line-height: 1.6; }
+@media (max-width: 900px) {
+  .story-path { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+  .story-path::before { display: none; }
+  .pedagogy-points { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .story-path { grid-template-columns: 1fr; padding-left: 20px; }
+  .story-path::before { display: block; left: 19px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--sand); }
+  .story-path li { padding-left: 36px; }
+  .story-num { position: absolute; left: -20px; top: 0; margin: 0; }
+}
+
 /* Testimonials: masonry columns of quote cards */
 .testimonials { columns: 2 300px; column-gap: clamp(16px, 2vw, 24px); }
 .testimonial { break-inside: avoid; margin: 0 0 clamp(16px, 2vw, 24px); background: var(--paper); border: 1px solid var(--rule); padding: clamp(22px, 2.6vw, 30px); display: flex; flex-direction: column; gap: 1rem; position: relative; }
