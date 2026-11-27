@@ -552,32 +552,6 @@ home = f"""<section class="hero">
 
 {testimonials_html()}
 
-{home_subjects()}
-
-<section class="band">
-  <div class="wrap">
-    <div>
-      <div class="band-head">
-        <h2>Unlike the lessons you have sat through before</h2>
-      </div>
-      <div class="principles">
-        <div>
-          <h3>You do the talking</h3>
-          <p>Every lesson is built around discussion. You test your reading against other people's and learn to defend it.</p>
-        </div>
-        <div>
-          <h3>A new way into the subject</h3>
-          <p>We start from how each subject thinks: how a writer, an economist or a mathematician builds an argument. Then you learn to make that argument yourself.</p>
-        </div>
-        <div>
-          <h3>Tutors who know the course</h3>
-          <p>Experienced tutors lead every class and show you what each assessment is really asking for.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 {cta()}"""
 
 page("index.html", "Ink &amp; Quill | IB Tuition Specialists in Singapore",
