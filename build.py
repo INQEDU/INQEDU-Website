@@ -37,6 +37,47 @@ SHOW_GUIDES = False
 NAV = [("Home", "index.html"), ("Classes", "classes.html"), ("Tutor", "tutor.html")] + ([("Guides", "guides.html")] if SHOW_GUIDES else []) + [("Contact", "contact.html")]
 
 
+SITE = "https://www.inqedu.com"
+BUILT_PAGES = []   # every page path, for sitemap.xml
+
+
+def clean_url(path):
+    """The address Cloudflare serves a page at: /, /classes, /classes/economics (no .html)."""
+    if path == "index.html":
+        return SITE + "/"
+    return SITE + "/" + path[:-len(".html")]
+
+
+ORG_JSON_LD = """<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://www.inqedu.com/#organization",
+      "name": "Ink & Quill",
+      "alternateName": ["Ink and Quill", "INQEDU", "Ink & Quill IB Tuition"],
+      "url": "https://www.inqedu.com/",
+      "logo": "https://www.inqedu.com/assets/logo.png",
+      "image": "https://www.inqedu.com/assets/logo.png",
+      "description": "IB Diploma tuition in Singapore for English A Language and Literature, Literature, Business Management, Economics, Geography, Psychology and Mathematics, at Standard and Higher Level.",
+      "email": "admin@inqedu.com",
+      "telephone": "+65 8866 5396",
+      "areaServed": {"@type": "Country", "name": "Singapore"}
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.inqedu.com/#website",
+      "name": "Ink & Quill",
+      "alternateName": ["Ink and Quill", "INQEDU"],
+      "url": "https://www.inqedu.com/",
+      "publisher": {"@id": "https://www.inqedu.com/#organization"}
+    }
+  ]
+}
+</script>"""
+
+
 def asset_version(rel):
     """Short fingerprint of a file, added to its link so browsers fetch the new copy after a change."""
     import hashlib
@@ -56,7 +97,16 @@ def page(path, title, description, body, current, root=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<link rel="canonical" href="{clean_url(path)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ink &amp; Quill">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{clean_url(path)}">
+<meta property="og:image" content="{SITE}/assets/logo.png">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="{root}assets/favicon.png">
+<link rel="apple-touch-icon" href="{root}assets/favicon.png">{ORG_JSON_LD if path == "index.html" else ""}
 <link rel="stylesheet" href="{root}css/styles.css?v={asset_version('css/styles.css')}">
 </head>
 <body>
@@ -112,6 +162,7 @@ def page(path, title, description, body, current, root=""):
 </body>
 </html>
 """
+    BUILT_PAGES.append(path)
     target = OUT / path
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(html, encoding="utf-8")
@@ -534,7 +585,7 @@ home = f"""<section class="hero">
 
 {cta()}"""
 
-page("index.html", "Ink &amp; Quill IB Tuition",
+page("index.html", "Ink &amp; Quill | IB Tuition Specialists in Singapore",
      "IB Diploma tuition in English A Language and Literature, Literature, Business Management, Economics, Geography, Psychology and Mathematics, at SL and HL.",
      home, "index.html")
 
@@ -787,5 +838,13 @@ contact = f"""<section class="page-head">
 page("contact.html", "Contact Ink &amp; Quill",
      "Message Ink and Quill on WhatsApp or by email, and read answers to common questions about IB tuition.",
      contact, "contact.html")
+
+# --------------------------------------------------------- Search engines
+import datetime
+today = datetime.date.today().isoformat()
+urls = "".join(f"  <url><loc>{clean_url(pth)}</loc><lastmod>{today}</lastmod></url>\n" for pth in BUILT_PAGES)
+(OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n', encoding="utf-8")
+(OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
 
 print("Built", len(list(OUT.rglob("*.html"))), "pages into", OUT)
