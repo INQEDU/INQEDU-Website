@@ -364,8 +364,7 @@ def testimonials_html():
           <figcaption><strong>{name}</strong><span>{school}</span></figcaption>
         </figure>"""
     return f"""<section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Testimonials</p>
+  <div class="wrap">
     <div>
       <div class="band-head">
         <h2>What our students say</h2>
@@ -394,8 +393,7 @@ def home_subjects():
             for x in group_subjects(gid))
         cols.append(f'<div><p class="group-label"><span>{num}</span>{gname}</p><ul class="also">{items}</ul></div>')
     return f"""<section class="band band--linen">
-  <div class="wrap cols">
-    <p class="label">Subjects</p>
+  <div class="wrap">
     <div>
       <div class="band-head">
         <h2>Eight IB Diploma subjects, at Standard and Higher Level</h2>
@@ -536,8 +534,7 @@ home = f"""<section class="hero">
 </section>
 
 <section class="band">
-  <div class="wrap cols">
-    <p class="label">In class</p>
+  <div class="wrap">
     <div>
       <div class="band-head">
         <h2>Where the discussion happens</h2>
@@ -559,8 +556,7 @@ home = f"""<section class="hero">
 {home_subjects()}
 
 <section class="band">
-  <div class="wrap cols">
-    <p class="label">In the classroom</p>
+  <div class="wrap">
     <div>
       <div class="band-head">
         <h2>Unlike the lessons you have sat through before</h2>
