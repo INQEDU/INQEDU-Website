@@ -392,12 +392,12 @@ def home_subjects():
             f'<li><a href="classes/{x["slug"]}.html">{x["name"]}</a><span>SL &middot; HL</span></li>'
             for x in group_subjects(gid))
         cols.append(f'<div><p class="group-label"><span>{num}</span>{gname}</p><ul class="also">{items}</ul></div>')
-    return f"""<section class="band band--linen">
+    return f"""<section class="band" id="our-subjects">
   <div class="wrap">
     <div>
       <div class="band-head">
-        <h2>Eight IB Diploma subjects, at Standard and Higher Level</h2>
-        <p class="measure">Every class follows the IB Diploma syllabus. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
+        <h2>Our subjects</h2>
+        <p class="measure">Eight IB Diploma subjects, each taught at Standard and Higher Level. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
       </div>
       <div class="groups">{"".join(cols)}</div>
       <p style="margin-top: 2.2rem;"><a class="more" href="classes.html">All subjects and classes</a></p>
@@ -596,6 +596,8 @@ home = f"""<section class="hero">
 </section>
 
 {testimonials_html()}
+
+{home_subjects()}
 
 {cta()}"""
 
