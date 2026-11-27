@@ -68,6 +68,7 @@ p { margin: 0; }
 .btn--ghost { background: transparent; color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .btn--large { font-size: 0.95rem; padding: 1.25em 3.6em; letter-spacing: 0.14em; border-width: 1.5px; gap: 0.9em; }
+.btn--arrow { gap: 0.8em; }
 .btn--arrow span { font-size: 1.25em; line-height: 1; transition: transform 0.2s; }
 .btn--arrow:hover span { transform: translateX(5px); }
 .btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }

@@ -398,9 +398,9 @@ def home_subjects():
       <div class="band-head">
         <h2>Our subjects</h2>
         <p class="measure">Eight IB Diploma subjects, each taught at Standard and Higher Level. Choose a subject to see what we cover, how it is assessed and when classes run.</p>
+        <div class="actions"><a class="btn btn--arrow" href="classes.html">All subjects and classes <span aria-hidden="true">&rarr;</span></a></div>
       </div>
       <div class="groups">{"".join(cols)}</div>
-      <p style="margin-top: 2.2rem;"><a class="more" href="classes.html">All subjects and classes</a></p>
     </div>
   </div>
 </section>"""
